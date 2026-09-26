@@ -53,7 +53,7 @@ export function Topbar() {
             </button>
           </SheetTrigger>
           <SheetContent side="left" className="p-0 w-[260px] bg-azul border-0 [&>button]:text-white">
-            <SidebarContent onNavigate={() => setSheetOpen(false)} />
+            <SidebarContent forceExpanded onNavigate={() => setSheetOpen(false)} />
           </SheetContent>
         </Sheet>
         <div className="min-w-0">
