@@ -39,6 +39,17 @@ export function Topbar() {
   const [selected, setSelected] = useState<Alarm | null>(null);
   const [popoverOpen, setPopoverOpen] = useState(false);
 
+  // Estado real da ligação ao servidor + relógio (só após hidratação).
+  const health = useQuery({ queryKey: ["health"], queryFn: () => api.health(), refetchInterval: 60_000 });
+  const [clock, setClock] = useState<string | null>(null);
+  useEffect(() => {
+    const tick = () => setClock(new Date().toLocaleTimeString("pt-PT", { hour12: false }));
+    tick();
+    const t = setInterval(tick, 1000);
+    return () => clearInterval(t);
+  }, []);
+
+
   let title = titles[pathname] ?? "Antosc";
   if (pathname.startsWith("/torres/") && pathname !== "/torres") title = "Detalhe da Torre";
 
