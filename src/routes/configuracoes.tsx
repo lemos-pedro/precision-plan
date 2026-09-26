@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Save, Server, SlidersHorizontal, Info } from "lucide-react";
 import { toast } from "sonner";
-import { API_BASE_URL } from "@/lib/api";
+import { useQuery } from "@tanstack/react-query";
+import { API_BASE_URL, api } from "@/lib/api";
 import { Panel } from "@/components/common/Panel";
 import { useAuth } from "@/lib/auth";
 
