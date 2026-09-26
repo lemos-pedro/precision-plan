@@ -21,9 +21,9 @@ export function SlaCard() {
   });
   const uiTowers = (towersQuery.data?.data ?? []).map((tower) => toUiTower(tower, { regions: regionsQuery.data?.data }));
   const slaRegioes = buildRegionStats(uiTowers, regionsQuery.data?.data);
-  const slaGlobal = slaQuery.data?.availability ?? 0;
+  const slaGlobal = slaQuery.data?.availability_percent ?? 0;
   const slaTorresAfetadas =
-    (slaQuery.data?.offline_sites ?? 0) + (slaQuery.data?.degraded_sites ?? 0) ||
+    (slaQuery.data?.affected_towers ?? 0) ||
     uiTowers.filter((tower) => tower.status !== "online").length;
   const slaStatus = slaGlobal >= 99.5 ? "critical" : slaGlobal >= 98 ? "ok" : "degraded";
   const slaColor = slaStatus === "critical" ? "text-online" : slaStatus === "ok" ? "text-azul-2" : "text-degraded";

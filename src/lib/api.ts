@@ -49,6 +49,7 @@ export interface ApiTowerOperator {
 
 export interface ApiTower {
   tower_id: string;
+  tower_name?: string;
   site_id : String;
   name: string;
   status: TowerStatus;
@@ -91,6 +92,7 @@ export interface ApiGeneratorReading {
 export interface ApiEvent {
   event_id: string;
   tower_id: string;
+  tower_name?: string;
   type: EventType;
   severity: AlarmSeverity;
   message: string;
@@ -100,6 +102,7 @@ export interface ApiEvent {
 export interface ApiMetric {
   metric_id: string;
   tower_id: string;
+  tower_name?: string;
   collected_at: string;
   created_at: string;
   metrics: Record<string, number | string | boolean>;
@@ -123,6 +126,7 @@ export interface ApiRegion {
 export interface ApiTicket {
   ticket_id: string;
   tower_id: string;
+  tower_name?: string;
   event_id: string;
   status: TicketStatus;
   acknowledged_at?: string;
