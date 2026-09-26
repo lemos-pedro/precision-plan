@@ -12,6 +12,7 @@ import { StatusBadge } from "@/components/dashboard/StatusBadge";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { useAlarms } from "@/lib/alarms-store";
 import { TorreMap } from "@/components/torre/TorreMap";
+import { SiteNetEcoView } from "@/components/torre/SiteNetEcoView";
 
 export const Route = createFileRoute("/torres/$torreId")({
   head: ({ params }) => ({ meta: [{ title: `${params.torreId} — ANTOSC` }] }),
@@ -213,6 +214,7 @@ const eventsQuery = useQuery({
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4 mt-4">
+          <SiteNetEcoView torre={torre} />
           {/* Estado operacional — cards de topo */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <MetricCard icon={<ShieldCheck className="h-[18px] w-[18px] text-online" />} iconBg="#DCFCE7" label="Disp. 30d" value={`${(torre.disp30d ?? 0).toFixed(2)}%`} />
