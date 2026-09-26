@@ -128,7 +128,11 @@ function TorresPage() {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <ScanPill />
+        <ScanPill
+          lastUpdatedAt={towersQuery.dataUpdatedAt || undefined}
+          isFetching={towersQuery.isFetching}
+          onRefresh={() => void towersQuery.refetch()}
+        />
         <p className="text-xs text-muted-foreground font-mono">
           {rows.length} / {torres.length} sites
         </p>
