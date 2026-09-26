@@ -1,32 +1,32 @@
-import { useState } from "react";
 import { RefreshCw } from "lucide-react";
-import { toast } from "sonner";
 
-export function ScanPill() {
-  const [last, setLast] = useState(new Date(Date.now() - 2 * 60_000));
-  const [busy, setBusy] = useState(false);
-
-  const scan = () => {
-    if (busy) return;
-    setBusy(true);
-    toast.info("Varredura SNMP iniciada…");
-    setTimeout(() => {
-      setLast(new Date());
-      setBusy(false);
-      toast.success("Varredura concluída");
-    }, 1200);
-  };
-
-  const mins = Math.max(0, Math.round((Date.now() - last.getTime()) / 60_000));
-  const txt = mins < 1 ? "agora" : `há ${mins} min`;
+/**
+ * Mostra o momento da última leitura bem-sucedida vinda do servidor e permite
+ * pedir uma nova. Sem dados simulados: quando ainda não houve leitura, diz isso.
+ */
+export function ScanPill({
+  lastUpdatedAt,
+  isFetching,
+  onRefresh,
+}: {
+  lastUpdatedAt?: number | undefined;
+  isFetching?: boolean | undefined;
+  onRefresh?: (() => void) | undefined;
+}) {
+  let txt = "sem leitura";
+  if (lastUpdatedAt) {
+    const mins = Math.max(0, Math.round((Date.now() - lastUpdatedAt) / 60_000));
+    txt = mins < 1 ? "agora" : `há ${mins} min`;
+  }
 
   return (
     <button
-      onClick={scan}
+      type="button"
+      onClick={onRefresh}
       className="inline-flex items-center gap-2 text-[11px] px-2.5 py-1 rounded-full bg-muted text-muted-foreground hover:bg-azul hover:text-white transition-colors"
     >
-      <RefreshCw className={`h-4 w-4 ${busy ? "animate-spin" : ""}`} />
-      Última varredura: {txt}
+      <RefreshCw className={`h-4 w-4 ${isFetching ? "animate-spin" : ""}`} />
+      Última leitura: {txt}
     </button>
   );
 }
