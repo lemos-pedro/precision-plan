@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Outlet } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useMemo, useEffect } from "react";
 import { Search, RadioTower } from "lucide-react";
@@ -261,6 +261,8 @@ function TorresPage() {
           </table>
         </div>
       </Panel>
+
+      <Outlet />
     </div>
   );
 }
