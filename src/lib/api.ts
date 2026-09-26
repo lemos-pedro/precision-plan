@@ -31,8 +31,7 @@
 
 export const API_BASE_URL =
   (typeof import.meta !== "undefined" && (import.meta as any).env?.VITE_API_BASE_URL) ||
-  "http://172.21.1.106:8000";
-  //"https://dce4-105-174-2-90.ngrok-free.app";
+  "http://172.21.1.133:8000";
 
 // ------------------------------------------------------------------
 // Types (mirror backend payloads)
