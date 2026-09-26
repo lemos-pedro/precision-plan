@@ -173,6 +173,32 @@ export interface ApiError {
 }
 
 
+
+/**
+ * Timeout de rede: sem isto, um servidor de monitorização inacessível
+ * (rede interna) deixa a UI pendurada até o TCP desistir. Com timeout,
+ * as páginas caem rapidamente num estado de erro/vazio honesto.
+ */
+const REQUEST_TIMEOUT_MS = 8000;
+
+async function fetchWithTimeout(input: string, init: RequestInit): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  try {
+    return await fetch(input, { ...init, signal: controller.signal });
+  } catch (e) {
+    if (e instanceof DOMException && e.name === "AbortError") {
+      throw {
+        code: "network_timeout",
+        message: "Servidor de monitorização não respondeu a tempo.",
+      } as ApiError;
+    }
+    throw e;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 // Backend ainda não devolve {data, meta} no body dos endpoints de listagem —
 // manda o array diretamente e o total no header X-Total-Count (ver api.md
 // vs comportamento real). Reconstruímos aqui o shape que o resto do
@@ -204,7 +230,7 @@ async function requestPaginated<T>(
     if (auth.apiKey) headers["X-API-Key"] = auth.apiKey;
   }
 
-  const res = await fetch(url.toString(), {
+  const res = await fetchWithTimeout(url.toString(), {
     method: opts.method ?? "GET",
     headers,
     body: opts.body ? JSON.stringify(opts.body) : undefined,
@@ -339,7 +365,7 @@ async function request<T>(
     }
   }
 
-  const res = await fetch(url.toString(), {
+  const res = await fetchWithTimeout(url.toString(), {
     method: opts.method ?? "GET",
     headers,
     body: opts.body !== undefined
