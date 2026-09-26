@@ -4,6 +4,7 @@ import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
 import { SystemStatusBar } from "./SystemStatusBar";
 import { useAuth } from "@/lib/auth";
+import { NavStateProvider, useNavState } from "@/lib/nav-state";
 
 const PUBLIC = ["/login", "/recuperar-password"];
 
@@ -21,9 +22,23 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
   if (!ready || !user) return <div className="min-h-screen bg-background" />;
 
   return (
+    <NavStateProvider>
+      <Shell>{children}</Shell>
+    </NavStateProvider>
+  );
+}
+
+function Shell({ children }: { children: ReactNode }) {
+  const { collapsed } = useNavState();
+  return (
     <div className="min-h-screen flex bg-background text-foreground">
       <Sidebar />
-      <div className="lg:ml-[232px] flex-1 flex flex-col min-h-screen min-w-0">
+      <div
+        className={[
+          "flex-1 flex flex-col min-h-screen min-w-0 transition-[margin] duration-150",
+          collapsed ? "lg:ml-[60px]" : "lg:ml-[232px]",
+        ].join(" ")}
+      >
         <Topbar />
         <main className="flex-1 px-3 py-3 lg:px-5 lg:py-4">{children}</main>
         <SystemStatusBar />
