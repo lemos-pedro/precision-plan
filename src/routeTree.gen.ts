@@ -10,33 +10,166 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AlarmesRouteImport } from './routes/alarmes'
+import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
+import { Route as EquipamentosRouteImport } from './routes/equipamentos'
+import { Route as EquipasRouteImport } from './routes/equipas'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as MapaRouteImport } from './routes/mapa'
+import { Route as RecuperarPasswordRouteImport } from './routes/recuperar-password'
+import { Route as RelatoriosRouteImport } from './routes/relatorios'
+import { Route as TorresRouteImport } from './routes/torres'
+import { Route as TorresTorreIdRouteImport } from './routes/torres.$torreId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AlarmesRoute = AlarmesRouteImport.update({
+  id: '/alarmes',
+  path: '/alarmes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EquipamentosRoute = EquipamentosRouteImport.update({
+  id: '/equipamentos',
+  path: '/equipamentos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EquipasRoute = EquipasRouteImport.update({
+  id: '/equipas',
+  path: '/equipas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapaRoute = MapaRouteImport.update({
+  id: '/mapa',
+  path: '/mapa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecuperarPasswordRoute = RecuperarPasswordRouteImport.update({
+  id: '/recuperar-password',
+  path: '/recuperar-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RelatoriosRoute = RelatoriosRouteImport.update({
+  id: '/relatorios',
+  path: '/relatorios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TorresRoute = TorresRouteImport.update({
+  id: '/torres',
+  path: '/torres',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TorresTorreIdRoute = TorresTorreIdRouteImport.update({
+  id: '/$torreId',
+  path: '/$torreId',
+  getParentRoute: () => TorresRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alarmes': typeof AlarmesRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/equipamentos': typeof EquipamentosRoute
+  '/equipas': typeof EquipasRoute
+  '/login': typeof LoginRoute
+  '/mapa': typeof MapaRoute
+  '/recuperar-password': typeof RecuperarPasswordRoute
+  '/relatorios': typeof RelatoriosRoute
+  '/torres': typeof TorresRouteWithChildren
+  '/torres/$torreId': typeof TorresTorreIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/alarmes': typeof AlarmesRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/equipamentos': typeof EquipamentosRoute
+  '/equipas': typeof EquipasRoute
+  '/login': typeof LoginRoute
+  '/mapa': typeof MapaRoute
+  '/recuperar-password': typeof RecuperarPasswordRoute
+  '/relatorios': typeof RelatoriosRoute
+  '/torres': typeof TorresRouteWithChildren
+  '/torres/$torreId': typeof TorresTorreIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/alarmes': typeof AlarmesRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/equipamentos': typeof EquipamentosRoute
+  '/equipas': typeof EquipasRoute
+  '/login': typeof LoginRoute
+  '/mapa': typeof MapaRoute
+  '/recuperar-password': typeof RecuperarPasswordRoute
+  '/relatorios': typeof RelatoriosRoute
+  '/torres': typeof TorresRouteWithChildren
+  '/torres/$torreId': typeof TorresTorreIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/alarmes'
+    | '/configuracoes'
+    | '/equipamentos'
+    | '/equipas'
+    | '/login'
+    | '/mapa'
+    | '/recuperar-password'
+    | '/relatorios'
+    | '/torres'
+    | '/torres/$torreId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/alarmes'
+    | '/configuracoes'
+    | '/equipamentos'
+    | '/equipas'
+    | '/login'
+    | '/mapa'
+    | '/recuperar-password'
+    | '/relatorios'
+    | '/torres'
+    | '/torres/$torreId'
+  id:
+    | '__root__'
+    | '/'
+    | '/alarmes'
+    | '/configuracoes'
+    | '/equipamentos'
+    | '/equipas'
+    | '/login'
+    | '/mapa'
+    | '/recuperar-password'
+    | '/relatorios'
+    | '/torres'
+    | '/torres/$torreId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlarmesRoute: typeof AlarmesRoute
+  ConfiguracoesRoute: typeof ConfiguracoesRoute
+  EquipamentosRoute: typeof EquipamentosRoute
+  EquipasRoute: typeof EquipasRoute
+  LoginRoute: typeof LoginRoute
+  MapaRoute: typeof MapaRoute
+  RecuperarPasswordRoute: typeof RecuperarPasswordRoute
+  RelatoriosRoute: typeof RelatoriosRoute
+  TorresRoute: typeof TorresRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +181,101 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/alarmes': {
+      id: '/alarmes'
+      path: '/alarmes'
+      fullPath: '/alarmes'
+      preLoaderRoute: typeof AlarmesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/configuracoes': {
+      id: '/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof ConfiguracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/equipamentos': {
+      id: '/equipamentos'
+      path: '/equipamentos'
+      fullPath: '/equipamentos'
+      preLoaderRoute: typeof EquipamentosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/equipas': {
+      id: '/equipas'
+      path: '/equipas'
+      fullPath: '/equipas'
+      preLoaderRoute: typeof EquipasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mapa': {
+      id: '/mapa'
+      path: '/mapa'
+      fullPath: '/mapa'
+      preLoaderRoute: typeof MapaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recuperar-password': {
+      id: '/recuperar-password'
+      path: '/recuperar-password'
+      fullPath: '/recuperar-password'
+      preLoaderRoute: typeof RecuperarPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/relatorios': {
+      id: '/relatorios'
+      path: '/relatorios'
+      fullPath: '/relatorios'
+      preLoaderRoute: typeof RelatoriosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/torres': {
+      id: '/torres'
+      path: '/torres'
+      fullPath: '/torres'
+      preLoaderRoute: typeof TorresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/torres/$torreId': {
+      id: '/torres/$torreId'
+      path: '/$torreId'
+      fullPath: '/torres/$torreId'
+      preLoaderRoute: typeof TorresTorreIdRouteImport
+      parentRoute: typeof TorresRoute
+    }
   }
 }
 
+interface TorresRouteChildren {
+  TorresTorreIdRoute: typeof TorresTorreIdRoute
+}
+
+const TorresRouteChildren: TorresRouteChildren = {
+  TorresTorreIdRoute: TorresTorreIdRoute,
+}
+
+const TorresRouteWithChildren =
+  TorresRoute._addFileChildren(TorresRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlarmesRoute: AlarmesRoute,
+  ConfiguracoesRoute: ConfiguracoesRoute,
+  EquipamentosRoute: EquipamentosRoute,
+  EquipasRoute: EquipasRoute,
+  LoginRoute: LoginRoute,
+  MapaRoute: MapaRoute,
+  RecuperarPasswordRoute: RecuperarPasswordRoute,
+  RelatoriosRoute: RelatoriosRoute,
+  TorresRoute: TorresRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
