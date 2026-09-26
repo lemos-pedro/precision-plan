@@ -81,8 +81,19 @@ export function Topbar() {
           <span>Pesquisar site, IP ou alarme</span>
         </div>
         <div className="hidden md:flex items-center gap-3 border-x border-border px-3 text-[10px] text-muted-foreground">
-          <span className="flex items-center gap-1.5"><Radio className="h-3 w-3 text-online" /> Monitorização activa</span>
-          <span className="flex items-center gap-1.5 font-mono"><Clock3 className="h-3 w-3" /> Tempo real</span>
+          <span className="flex items-center gap-1.5">
+            <Radio
+              className={`h-3 w-3 ${health.isError ? "text-offline" : health.isLoading ? "text-muted-foreground" : "text-online"}`}
+            />
+            {health.isError
+              ? "Servidor sem ligação"
+              : health.isLoading
+                ? "A ligar ao servidor…"
+                : "Monitorização activa"}
+          </span>
+          <span className="flex items-center gap-1.5 font-mono">
+            <Clock3 className="h-3 w-3" /> {clock ?? "--:--:--"}
+          </span>
         </div>
 
         <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
