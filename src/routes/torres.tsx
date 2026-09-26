@@ -168,7 +168,7 @@ function TorresPage() {
         title="Inventário de sites"
         dense
         actions={
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <select
               value={regiao}
               onChange={(e) => setRegiao(e.target.value)}
@@ -182,14 +182,14 @@ function TorresPage() {
                 </option>
               ))}
             </select>
-            <div className="relative">
+            <div className="relative min-w-0 flex-1">
               <Search className="h-3.5 w-3.5 text-muted-foreground absolute left-2 top-1/2 -translate-y-1/2" />
               <input
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 placeholder="Pesquisar id, nome, local, ip…"
                 aria-label="Pesquisar sites"
-                className="h-7 w-52 rounded border border-border bg-background pl-7 pr-2 text-[11px] focus:outline-none focus:ring-1 focus:ring-azul-claro"
+                className="h-7 w-full min-w-0 rounded border border-border bg-background pl-7 pr-2 text-[11px] focus:outline-none focus:ring-1 focus:ring-azul-claro sm:w-52"
               />
             </div>
           </div>
