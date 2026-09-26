@@ -132,16 +132,24 @@ function ConfiguracoesPage() {
               <dd className="font-mono text-[11px]">{user?.email ?? user?.name ?? "—"}</dd>
             </div>
             <div className="flex items-center justify-between gap-3">
-              <dt className="text-muted-foreground">Versão da consola</dt>
-              <dd className="font-mono text-[11px]">TOWERCORE v0.1.45</dd>
+              <dt className="text-muted-foreground">Ligação ao servidor</dt>
+              <dd
+                className={`font-mono text-[11px] ${
+                  health.isError ? "text-offline" : health.isLoading ? "text-muted-foreground" : "text-online"
+                }`}
+              >
+                {health.isError ? "sem ligação" : health.isLoading ? "a verificar…" : "operacional"}
+              </dd>
             </div>
           </dl>
-          <p className="mt-3 flex items-start gap-2 rounded bg-muted/60 px-2 py-2 text-[10px] text-muted-foreground">
+          <div className="mt-3 flex items-start gap-2 rounded bg-muted/60 px-2 py-2 text-[10px] text-muted-foreground">
             <Info className="mt-0.5 h-3 w-3 shrink-0" />
-            O endereço do servidor é definido no arranque da aplicação (variável
-            <span className="font-mono"> VITE_API_BASE_URL</span>). Se estiver numa rede sem acesso ao
-            servidor interno, as páginas mostram estados vazios em vez de dados.
-          </p>
+            <p>
+              O endereço do servidor é definido no arranque da aplicação (variável{" "}
+              <span className="font-mono">VITE_API_BASE_URL</span>). Se estiver numa rede sem acesso
+              ao servidor interno, as páginas mostram estados vazios em vez de dados.
+            </p>
+          </div>
         </Panel>
       </div>
     </div>
