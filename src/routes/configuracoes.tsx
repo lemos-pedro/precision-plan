@@ -34,6 +34,7 @@ const DEFAULTS: Prefs = { densidade: "compacta", refresh: 60, alarmesSom: false 
 function ConfiguracoesPage() {
   const { user } = useAuth();
   const [prefs, setPrefs] = useState<Prefs>(DEFAULTS);
+  const health = useQuery({ queryKey: ["health"], queryFn: () => api.health() });
 
   useEffect(() => {
     try {
