@@ -19,6 +19,7 @@ import { Route as MapaRouteImport } from './routes/mapa'
 import { Route as RecuperarPasswordRouteImport } from './routes/recuperar-password'
 import { Route as RelatoriosRouteImport } from './routes/relatorios'
 import { Route as TorresRouteImport } from './routes/torres'
+import { Route as TorresIndexRouteImport } from './routes/torres.index'
 import { Route as TorresTorreIdRouteImport } from './routes/torres.$torreId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -71,6 +72,11 @@ const TorresRoute = TorresRouteImport.update({
   path: '/torres',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TorresIndexRoute = TorresIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TorresRoute,
+} as any)
 const TorresTorreIdRoute = TorresTorreIdRouteImport.update({
   id: '/$torreId',
   path: '/$torreId',
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/relatorios': typeof RelatoriosRoute
   '/torres': typeof TorresRouteWithChildren
   '/torres/$torreId': typeof TorresTorreIdRoute
+  '/torres/': typeof TorresIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -100,8 +107,8 @@ export interface FileRoutesByTo {
   '/mapa': typeof MapaRoute
   '/recuperar-password': typeof RecuperarPasswordRoute
   '/relatorios': typeof RelatoriosRoute
-  '/torres': typeof TorresRouteWithChildren
   '/torres/$torreId': typeof TorresTorreIdRoute
+  '/torres': typeof TorresIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -116,6 +123,7 @@ export interface FileRoutesById {
   '/relatorios': typeof RelatoriosRoute
   '/torres': typeof TorresRouteWithChildren
   '/torres/$torreId': typeof TorresTorreIdRoute
+  '/torres/': typeof TorresIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -131,6 +139,7 @@ export interface FileRouteTypes {
     | '/relatorios'
     | '/torres'
     | '/torres/$torreId'
+    | '/torres/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -142,8 +151,8 @@ export interface FileRouteTypes {
     | '/mapa'
     | '/recuperar-password'
     | '/relatorios'
-    | '/torres'
     | '/torres/$torreId'
+    | '/torres'
   id:
     | '__root__'
     | '/'
@@ -157,6 +166,7 @@ export interface FileRouteTypes {
     | '/relatorios'
     | '/torres'
     | '/torres/$torreId'
+    | '/torres/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -244,6 +254,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TorresRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/torres/': {
+      id: '/torres/'
+      path: '/'
+      fullPath: '/torres/'
+      preLoaderRoute: typeof TorresIndexRouteImport
+      parentRoute: typeof TorresRoute
+    }
     '/torres/$torreId': {
       id: '/torres/$torreId'
       path: '/$torreId'
@@ -256,10 +273,12 @@ declare module '@tanstack/react-router' {
 
 interface TorresRouteChildren {
   TorresTorreIdRoute: typeof TorresTorreIdRoute
+  TorresIndexRoute: typeof TorresIndexRoute
 }
 
 const TorresRouteChildren: TorresRouteChildren = {
   TorresTorreIdRoute: TorresTorreIdRoute,
+  TorresIndexRoute: TorresIndexRoute,
 }
 
 const TorresRouteWithChildren =
