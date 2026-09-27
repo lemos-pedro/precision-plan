@@ -182,6 +182,9 @@ export interface ApiError {
 const REQUEST_TIMEOUT_MS = 8000;
 
 async function fetchWithTimeout(input: string, init: RequestInit): Promise<Response> {
+  // Modo de teste: responde com os dados de src/lib/mock-data.ts
+  const mock = await import("./mock-data");
+  if (mock.isMockMode()) return mock.mockFetch(input, init);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
   try {
